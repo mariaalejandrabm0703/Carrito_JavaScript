@@ -38,8 +38,24 @@ function leerDatosCurso(curso) {
     id: curso.querySelector("a").getAttribute("data-id"),
     cantidad: 1,
   };
-  // Se agrega el curso al listado
-  articulosCarrito = [...articulosCarrito, infoCurso];
+  // Valida si el curso ya fue adicionado al carrito
+  const existe = articulosCarrito.some((curso) => curso.id === infoCurso.id);
+  if (existe) {
+    // Actualiza cantidad del curso
+    const cursos = articulosCarrito.map((curso) => {
+      if (curso.id === infoCurso.id) {
+        curso.cantidad++;
+        return curso;
+      } else {
+        return curso;
+      }
+    });
+    // Se agrega el curso al listado
+    articulosCarrito = [...cursos];
+  } else {
+    // Se agrega el curso al listado
+    articulosCarrito = [...articulosCarrito, infoCurso];
+  }
   // Se pinta el curso agregado en el carrito
   mostrarCarritoHTML();
 }
